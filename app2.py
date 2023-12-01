@@ -3,7 +3,8 @@ import streamlit as st
 from PIL import Image
 import torch
 from torchvision import transforms
-from our_models import ImprovedConvAutoencoder, preprocess_image
+from our_models import ImprovedConvAutoencoder, transforming
+
 
 
 def page_preprocessing():
@@ -52,7 +53,7 @@ def page_clearing():
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
         with torch.no_grad():
-            clean_doc = model_cleaning(preprocess_image(image))
+            clean_doc = model_cleaning(transforming(image))
         st.image(transforms.ToPILImage()(clean_doc.squeeze(0)), caption='After')
 
 
