@@ -5,16 +5,6 @@ import torch
 from torchvision import transforms
 from our_models import ImprovedConvAutoencoder, preprocess_image
 
-def preprocess_image(image):
-    target_size = (440, 440)
-    transform = transforms.Compose([
-        transforms.Resize(target_size),
-        transforms.Grayscale(num_output_channels=1),  # Оставляем 1 канал
-        transforms.ToTensor(),
-    ])
-    transformed_image = transform(image)
-    return transformed_image
-
 
 def page_preprocessing():
     st.title('Preprocessing')
@@ -63,12 +53,8 @@ def page_clearing():
         image = Image.open(uploaded_file)
         with torch.no_grad():
             clean_doc = model_cleaning(preprocess_image(image))
-        col3, col4 = st.columns(2)
-        with col3:
-            st.image(transforming(image), caption='Before')
+        st.image(transforms.ToPILImage()(clean_doc.squeeze(0)), caption='After')
 
-        with col4:
-            st.image(transforms.ToPILImage()(clean_doc.squeeze(0)), caption='After')
 
 # Главная часть приложения
 def main():

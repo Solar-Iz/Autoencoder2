@@ -68,10 +68,11 @@ class ImprovedConvAutoencoder(nn.Module):
 
 
 def preprocess_image(image):
-    preprocess = T.Compose([
-        T.Resize((640, 640)),
+    target_size = (440, 440)
+    transform = T.Compose([
+        T.Resize(target_size),
+        T.Grayscale(num_output_channels=1),
         T.ToTensor(),
     ])
-    img_tensor = preprocess(image).unsqueeze(0)
-    return img_tensor
-
+    transformed_image = transform(image)
+    return transformed_image
