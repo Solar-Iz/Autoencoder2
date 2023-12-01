@@ -5,17 +5,15 @@ import torch
 from torchvision import transforms
 from our_models import ImprovedConvAutoencoder, preprocess_image
 
-def transforming(image):
+def preprocess_image(image):
     target_size = (440, 440)
-    # Преобразование изображений в соответствующий размер (! на всякий случай, выборочно проверяла, вроде одинаковые.. но мало ли!)
     transform = transforms.Compose([
         transforms.Resize(target_size),
-        transforms.Grayscale(num_output_channels=1),
+        transforms.Grayscale(num_output_channels=1),  # Оставляем 1 канал
         transforms.ToTensor(),
     ])
     transformed_image = transform(image)
-    pil_image = transforms.ToPILImage()(transformed_image)
-    return pil_image
+    return transformed_image
 
 
 def page_preprocessing():
