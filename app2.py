@@ -14,7 +14,8 @@ def transforming(image):
         transforms.ToTensor(),
     ])
     transformed_image = transform(image)
-    return transforms.ToPILImage()(transformed_image)
+    pil_image = transforms.ToPILImage()(transformed_image)
+    return pil_image
 
 
 def page_preprocessing():
