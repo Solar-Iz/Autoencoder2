@@ -13,7 +13,7 @@ def transforming(image):
         transforms.Grayscale(num_output_channels=1),
         transforms.ToTensor(),
     ])
-    transformed_image = transform(image).usqueeze(0)
+    transformed_image = transform(image)
     return transforms.ToPILImage()(transformed_image)
 
 
